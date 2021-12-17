@@ -1,4 +1,3 @@
-#hello behn k laure
 print("Importing Libraries ...")
 from flask import Flask, request, render_template
 from tensorflow.keras import optimizers
