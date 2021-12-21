@@ -8,25 +8,43 @@
   <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allerta+Stencil">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <link rel="stylesheet" href="/static/css/style.css">
+
+  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+
 </head>
 
 <body>
-  <div class="login" >
+  <div id="hu" class="login" >
     <div id="head" style="font-family: Allerta Stencil, Sans-serif;">
-      <h1 style="font-size:6rem;">Genre Detection</h1>
+      <h1 style="font-size:6rem;">Music Genre Detection</h1>
     </div>
     <!-- Main Input For Receiving Query to our ML -->
     <form action="{{ url_for('predict') }}" method="post" enctype="multipart/form-data">
-      <input type="file" name="file" placeholder="Audio" required="required" accept=".wav, .mp3" id = "upload"/>
+
+       <label for="upload">
+        <img src="/static/logo.png" style="height:80px; width:70px;border:5px solid black; border-radius: 20px; position: absolute; left: 166px; top: -20px; cursor: pointer; opacity: 0.4;" >
+        
+      </label>
+
+      <input type="file" id="upload" style=" display:none;visibility:none;" placeholder="Audio" required="required" accept=".wav, .mp3" onchange="updateFileName()">
+
+      <input type="text" id="uploadFile" placeholder="Songname" disabled="disabled"  onchange="show()">
+     
+
+
       <audio id="audio" controls>
         <source src="" id="src" />
       </audio>
+
+    
       <button type="submit" class="btn btn-primary btn-block btn-large" id="button">Click to Predict Genre of Given Audio</button>
     </form>
     <br>
-    <div style="transform: scale(1); color: white; ;">
+
+
+    <div id="out" style="transform: scale(1);  color: white; ;">
       <em>
         {{ prediction_text }}
       </em>
@@ -34,12 +52,41 @@
   </div>
 </body>
 
-<script>
+
+
+<script type="text/javascript">
+
+  // js function for playing song
   function handleFiles(event) {
     var files = event.target.files;
     $("#src").attr("src", URL.createObjectURL(files[0]));
     document.getElementById("audio").load();
   }
   document.getElementById("upload").addEventListener("change", handleFiles, false);
+
+
+// js function for displaying filename into the input text
+  function updateFileName() {
+        var mus = document.getElementById('upload');
+        var file_name = document.getElementById('uploadFile');
+        var fileNameIndex = mus.value.lastIndexOf("\\");
+
+        file_name.value = mus.value.substring(fileNameIndex + 1);
+    }
+
+
+    
+function show(){
+
+  var targetDiv = document.getElementById("out");
+  var btn = document.getElementById("uploadFile");
+  if (targetDiv.style.display == "none") {
+    targetDiv.style.display = "block";
+  } 
+    
+  
+};
+    
+
 </script>
 </html>
