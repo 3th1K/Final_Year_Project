@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
@@ -24,27 +25,29 @@
     <form action="{{ url_for('predict') }}" method="post" enctype="multipart/form-data">
 
        <label for="upload">
-        <img src="/static/logo.png" style="height:80px; width:70px;border:5px solid black; border-radius: 20px; position: absolute; left: 166px; top: -20px; cursor: pointer; opacity: 0.4;" >
+        <img src="/static/css/logo.png" style="height:80px; width:70px;border:5px solid black; border-radius: 20px; position: absolute; left: 166px; top: -20px; cursor: pointer; opacity: 0.4;" >
         
       </label>
 
       <input type="file" id="upload" style=" display:none;visibility:none;" placeholder="Audio" required="required" accept=".wav, .mp3" onchange="updateFileName()">
 
-      <input type="text" id="uploadFile" placeholder="Songname" disabled="disabled"  onchange="show()">
+      <input type="text" id="uploadFile" placeholder="Songname" disabled="disabled"  oninput="show()">
      
 
-
+      <div id="hide" style="display: none;">
       <audio id="audio" controls>
         <source src="" id="src" />
       </audio>
 
+
     
       <button type="submit" class="btn btn-primary btn-block btn-large" id="button">Click to Predict Genre of Given Audio</button>
+    </div>
     </form>
     <br>
 
 
-    <div id="out" style="transform: scale(1);  color: white; ;">
+    <div id="out" style="transform: scale(1);  color: rgb(253, 251, 251); display: none;">
       <em>
         {{ prediction_text }}
       </em>
@@ -65,7 +68,19 @@
   document.getElementById("upload").addEventListener("change", handleFiles, false);
 
 
-  
+  function show(){
+
+// var targetDiv = document.getElementById("out");
+// var btn = document.getElementById("uploadFile");
+// if (targetDiv.style.display == "none") {
+//   targetDiv.style.display = "block";
+// } 
+  document.getElementById("hide").style.display = "block"
+  document.getElementById("out").style.display = "block"
+
+};
+ 
+
 // js function for displaying filename into the input text
   function updateFileName() {
         var mus = document.getElementById('upload');
@@ -73,21 +88,13 @@
         var fileNameIndex = mus.value.lastIndexOf("\\");
 
         file_name.value = mus.value.substring(fileNameIndex + 1);
+
+        show()
     }
 
 
     
-function show(){
-
-  var targetDiv = document.getElementById("out");
-  var btn = document.getElementById("uploadFile");
-  if (targetDiv.style.display == "none") {
-    targetDiv.style.display = "block";
-  } 
-    
-  
-};
-    
+ 
 
 </script>
 </html>
