@@ -25,16 +25,16 @@
     <form action="{{ url_for('predict') }}" method="post" enctype="multipart/form-data">
 
        <label for="upload">
-        <img src="/static/css/logo.png" style="height:80px; width:70px;border:5px solid black; border-radius: 20px; position: absolute; left: 166px; top: -20px; cursor: pointer; opacity: 0.4;" >
+        <img src="/static/logo.png" style="height:80px; width:70px;border:5px solid black; border-radius: 20px; position: absolute; left: 166px; top: -20px; cursor: pointer; opacity: 0.4;" >
         
       </label>
 
-      <input type="file" id="upload" style=" display:none;visibility:none;" placeholder="Audio" required="required" accept=".wav, .mp3" onchange="updateFileName()">
+      <input type="file" id="upload" name="file" style=" display:none;visibility:none;" placeholder="Audio" required="required" accept=".wav, .mp3" onchange="updateFileName()" onclick="hide_pt()">
 
-      <input type="text" id="uploadFile" placeholder="Songname" disabled="disabled"  oninput="show()">
+      <input type="text" id="uploadFile" placeholder="Songname" disabled="disabled">
      
 
-      <div id="hide" style="display: none;">
+      <div id="bt" style="display: none;">
       <audio id="audio" controls>
         <source src="" id="src" />
       </audio>
@@ -47,15 +47,13 @@
     <br>
 
 
-    <div id="out" style="transform: scale(1);  color: rgb(253, 251, 251); display: none;">
+    <div id="pt" style="transform: scale(3);  color: rgb(253, 251, 251); position:absolute; top:100px; left:150px">
       <em>
         {{ prediction_text }}
       </em>
     </div>
   </div>
 </body>
-
-
 
 <script type="text/javascript">
 
@@ -68,17 +66,12 @@
   document.getElementById("upload").addEventListener("change", handleFiles, false);
 
 
-  function show(){
-
-// var targetDiv = document.getElementById("out");
-// var btn = document.getElementById("uploadFile");
-// if (targetDiv.style.display == "none") {
-//   targetDiv.style.display = "block";
-// } 
-  document.getElementById("hide").style.display = "block"
-  document.getElementById("out").style.display = "block"
-
-};
+  function show_bt(){
+  document.getElementById("bt").style.display = "block";
+}
+  function hide_pt(){
+    document.getElementById("pt").style.display = "none";
+  }
  
 
 // js function for displaying filename into the input text
@@ -89,7 +82,7 @@
 
         file_name.value = mus.value.substring(fileNameIndex + 1);
 
-        show()
+        show_bt()
     }
 
 
