@@ -44,7 +44,7 @@ body {
 	height:100%;
 	font-family: 'Helvetica';
 	/* background-image: url('https://source.unsplash.com/WLUHO9A_xik/1600*900'); */
-	background-image: url('background3.jpg');
+	background-image: url('../background3.jpg');
 	background-repeat: no-repeat; 
 	background-size: 100% 100%;
 	font-size: 24px;
@@ -91,13 +91,17 @@ body h1 {
 	height:400px;
 }
 #uploadFile{
+	background-color: #fff;
+	color: #333333;
 	text-align: center;
+	font-size: 25px;
 	border-radius: 40px;
 	height: 30px;
 	width: 250px;
 	position: absolute;
 	top: -5px;
 	right: -150px;
+	opacity: 0.9;
 	
 }
 
